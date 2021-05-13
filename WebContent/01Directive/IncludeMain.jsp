@@ -15,7 +15,7 @@ include 지시어 : 공통으로 사용할 JSP파일을 생성한 후
 <title>Insert title here</title>
 
 <!-- CSS코드는 양이 많으므로 외부파일로 선언하여 현재문서에 링크시킨다. -->
-<link rel="stylesheet"href=".//css/div_layout.css" />
+<link rel="stylesheet"href="./css/div_layout.css" />
 
 </head>
 <body>
