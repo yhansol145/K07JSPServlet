@@ -19,7 +19,7 @@
 	<%
 	session.setMaxInactiveInterval(1000);
 	%>
-	
+
 	<h2>세션 아이디 확인하기</h2>
 	<p>
 		<%=session.getId() %>
@@ -32,18 +32,12 @@
 	String creationTimeString = s.format(new Date(createTime));
 	
 	long lastTime = session.getLastAccessedTime();
-	String lastTimeString = s.format(new Date(lastTime));	
+	String lastTimeString = s.format(new Date(lastTime));
 	%>
+	
 	<ul>
 		<li>최초요청시간 : <%=creationTimeString %></li>
 		<li>마지막요청시간 : <%=lastTimeString %></li>
 	</ul>
-	
-	
-	
-	
-	
-
-
 </body>
 </html>
