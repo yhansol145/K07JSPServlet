@@ -123,6 +123,48 @@ DAO(Data Access Object)
 		return maps;
 	}
 	
+public Map<String, String> getMemberMap(String uid) {
+		
+		//회원정보를 저장할 Map컬렉션 생성
+		Map<String, String> maps = new HashMap<String, String>();
+		
+		String query = "SELECT id, pass, name FROM "
+				+ " member WHERE id=?";
+		
+		try {
+			psmt = con.prepareStatement(query);
+			psmt.setString(1, uid);
+			rs = psmt.executeQuery();
+			if(rs.next()) {
+				maps.put("id", rs.getString(1)); //아이디
+				maps.put("pass", rs.getString(2)); //패스워드
+				maps.put("name", rs.getString("name")); //이름
+			}
+			else {
+				System.out.println("결과셋이 없습니다.");
+			}
+		}
+		catch(Exception e) {
+			System.out.println("getMemberMap오류");
+			e.printStackTrace();
+		}
+		
+		//Map컬렉션에 저장된 회원정보 반환
+		return maps;
+	}
+
+	//자원해제
+	public void close() {
+		try {
+			if(rs!=null) rs.close();
+			if(psmt!=null) psmt.close();
+			if(con!=null) con.close();
+		}
+		catch(Exception e) {
+			System.out.println("Oracle 자원반납시 예외발생");
+		}
+	}
+	
 	
 	
 	
