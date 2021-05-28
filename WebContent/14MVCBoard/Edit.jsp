@@ -23,48 +23,52 @@
 			f.content.focus();
 			return false;
 		}
-		if(f.pass.value==""){
-			alert("비밀번호를 입력하세요");
-			f.pass.focus();
-			return false;
-		}
 	}
 </script>
 </head>
-<h2>파일첨부형 게시판-글쓰기(Write)</h2>
+<body>
+<h2>파일첨부형 게시판-수정하기(Edit)</h2>
+<!--  
+	수정 페이지에서도 파일을 첨부할 수 있으므로 enctype이 있어야한다. 
+	만약 파일을 첨부하지 않은 상태로 수정을 하게되면, 기존의 파일명을
+	그대로 유지해야 하므로 hidden 입력상자를 통해 기존 파일명을 
+	전송한다. 
+-->
 <form name="writeFrm" method="post" enctype="multipart/form-data" 
-	action="../mvcboard/write.do" onsubmit="return formValidate(this);">
+	action="../mvcboard/edit.do" onsubmit="return formValidate(this);">
+<input type="hid den" name="idx" value="${dto.idx }"/><!-- 일련번호 -->
+<input type="hid den" name="prevOfile" value="${dto.ofile }" /><!-- 원본 파일명 -->
+<input type="hid den" name="prevSfile" value="${dto.sfile }" /><!-- 저장된 파일명 -->
+	
 <table border="1" width="90%">
 	<tr>
 		<td>작성자</td>
 		<td>
-			<input type="text" name="name" style="width:150px;" />
+			<input type="text" name="name" style="width:150px;" value="${dto.name }" />
 		</td>
 	</tr>
 	<tr>
 		<td>제목</td>
 		<td>
-			<input type="text" name="title" style="width:90%;" />
+			<input type="text" name="title" style="width:90%;" value="${dto.title }" />
 		</td>
 	</tr>
 	<tr>
 		<td>내용</td>
 		<td>
-			<textarea name="content" style="width:90%;height:100px;"></textarea>
+			<textarea name="content" style="width:90%;height:100px;">${dto.content }</textarea>
 		</td>
 	</tr>
 	<tr>
 		<td>첨부파일</td>
 		<td>
-			<input type="file" name="ofile" /> 
+			<!-- 만약 첨부된 파일이 있다면 표시한다. -->
+			<c:if test="${not empty dto.ofile }">
+				<img src="../Uploads/${dto.sfile }" style="width:100px;" /><br />
+			</c:if>
+			<input type="file" name="ofile" />		 
 		</td>
-	</tr>
-	<tr>
-		<td>비밀번호</td>
-		<td>
-			<input type="password" name="pass" style="width:100px;" />
-		</td>
-	</tr>
+	</tr>	
 	<tr>
 		<td colspan="2" align="center">
 			<button type="submit">작성완료</button>
